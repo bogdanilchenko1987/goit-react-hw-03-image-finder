@@ -12,7 +12,7 @@ import { Component } from 'react';
 import { GalleryImg, GalleryItem } from './ImageGalleryItem.styled';
 import { TopicModal } from '../Modal/Modal';
 
-export class ImggalItm extends Component {
+export class ImageGalleryItem extends Component {
   state = {
     isModalOpen: false,
   };
