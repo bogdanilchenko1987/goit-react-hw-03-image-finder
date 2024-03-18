@@ -1,16 +1,6 @@
-// import { GalleryImg, GalleryItem } from './ImageGalleryItem.styled';
-
-// export const ImageGalleryItem = ({ src, tags }) => {
-//   return (
-//     <GalleryItem>
-//       <GalleryImg src={src} alt={tags} />
-//     </GalleryItem>
-//   );
-// };
-
 import { Component } from 'react';
 import { GalleryImg, GalleryItem } from './ImageGalleryItem.styled';
-import { TopicModal } from '../Modal/Modal';
+import { ImageModal } from '../Modal/Modal';
 
 export class ImageGalleryItem extends Component {
   state = {
@@ -38,7 +28,7 @@ export class ImageGalleryItem extends Component {
         <GalleryItem>
           <GalleryImg src={src} alt={tags} onClick={this.openModal} />
 
-          <TopicModal
+          <ImageModal
             isOpen={isModalOpen}
             onClose={this.closeModal}
             item={url}
@@ -48,3 +38,13 @@ export class ImageGalleryItem extends Component {
     );
   }
 }
+
+// import { GalleryImg, GalleryItem } from './ImageGalleryItem.styled';
+
+// export const ImageGalleryItem = ({ src, tags }) => {
+//   return (
+//     <GalleryItem>
+//       <GalleryImg src={src} alt={tags} />
+//     </GalleryItem>
+//   );
+// };

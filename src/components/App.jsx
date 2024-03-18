@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { Container } from './Container.styled';
 
 import { Searchbar } from './Searchbar/Searchbar';
-import { Loader } from './Loader/Loader';
+import { ButtonLoader } from './ButtonLoader/ButtonLoader';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 
 import { ThreeDots } from 'react-loader-spinner';
@@ -29,6 +29,11 @@ export class App extends Component {
 
         this.setState({ isLoading: true });
         const response = await fetchImages(newSearchQuery, page);
+
+        // this.setState({
+        //   images: response.hits,
+        //   isLoading: false,
+        // });
 
         this.setState({
           images: [...images, ...response.hits],
@@ -96,7 +101,7 @@ export class App extends Component {
           />
         )}
         {loadmore && Boolean(images.length) && (
-          <Loader onClick={this.handleLoadMore} />
+          <ButtonLoader onClick={this.handleLoadMore} />
         )}
         <Toaster />
       </Container>

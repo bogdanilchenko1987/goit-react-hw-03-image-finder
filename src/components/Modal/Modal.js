@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
+import PropTypes from 'prop-types';
 
 const styles = {
   overlay: {
@@ -18,7 +19,7 @@ const styles = {
 
 Modal.setAppElement('#root');
 
-export const TopicModal = ({ isOpen, onClose, item }) => {
+export const ImageModal = ({ isOpen, onClose, item }) => {
   return (
     <Modal
       isOpen={isOpen}
@@ -29,4 +30,10 @@ export const TopicModal = ({ isOpen, onClose, item }) => {
       {item}
     </Modal>
   );
+};
+
+ImageModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  item: PropTypes.object.isRequired,
 };
