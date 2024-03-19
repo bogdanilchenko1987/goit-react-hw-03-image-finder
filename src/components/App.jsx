@@ -8,7 +8,7 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 import { ThreeDots } from 'react-loader-spinner';
 import toast, { Toaster } from 'react-hot-toast';
 
-import { fetchImages } from './api';
+import { fetchImages } from '../api';
 
 export class App extends Component {
   state = {
@@ -27,23 +27,14 @@ export class App extends Component {
         const indexOfSlash = query.indexOf('/');
         const newSearchQuery = query.slice(indexOfSlash + 1);
 
-        this.setState({ isLoading: true });
+        this.setState({ isLoading: true, loadmore: false });
         const response = await fetchImages(newSearchQuery, page);
-
-        // this.setState({
-        //   images: response.hits,
-        //   isLoading: false,
-        // });
 
         this.setState({
           images: [...images, ...response.hits],
           isLoading: false,
+          loadmore: true,
         });
-
-        // this.setState(state => ({
-        //   images: [...response.hits, ...state.images],
-        //   isLoading: false,
-        // }));
 
         if (images.length === response.totalHits) {
           toast.error('Sorry, thats all we got!');
@@ -80,6 +71,7 @@ export class App extends Component {
 
   render() {
     const { images, error, isLoading, loadmore } = this.state;
+    const isListEmpty = Boolean(images.length);
     return (
       <Container>
         <Searchbar onSubmit={this.handleSubmit} />
@@ -87,7 +79,7 @@ export class App extends Component {
         {error && (
           <b>Oops! Something went wrong! Please try reloading this page!</b>
         )}
-        <ImageGallery items={images} />
+        {isListEmpty && <ImageGallery items={images} />}
         {isLoading && (
           <ThreeDots
             visible={true}
@@ -100,7 +92,7 @@ export class App extends Component {
             wrapperClass=""
           />
         )}
-        {loadmore && Boolean(images.length) && (
+        {loadmore && isListEmpty && (
           <ButtonLoader onClick={this.handleLoadMore} />
         )}
         <Toaster />
