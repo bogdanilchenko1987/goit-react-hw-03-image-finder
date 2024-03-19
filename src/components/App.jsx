@@ -4,8 +4,8 @@ import { Container } from './Container.styled';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ButtonLoader } from './ButtonLoader/ButtonLoader';
 import { ImageGallery } from './ImageGallery/ImageGallery';
+import { Loading } from './Loading/Loading';
 
-import { ThreeDots } from 'react-loader-spinner';
 import toast, { Toaster } from 'react-hot-toast';
 
 import { fetchImages } from '../api';
@@ -72,26 +72,15 @@ export class App extends Component {
   render() {
     const { images, error, isLoading, loadmore } = this.state;
     const isListEmpty = Boolean(images.length);
+
     return (
       <Container>
         <Searchbar onSubmit={this.handleSubmit} />
-
         {error && (
           <b>Oops! Something went wrong! Please try reloading this page!</b>
         )}
         {isListEmpty && <ImageGallery items={images} />}
-        {isLoading && (
-          <ThreeDots
-            visible={true}
-            height="80"
-            width="80"
-            color="#3f51b5"
-            radius="9"
-            ariaLabel="three-dots-loading"
-            wrapperStyle={{ justifyContent: 'center' }}
-            wrapperClass=""
-          />
-        )}
+        <Loading isVisible={isLoading} />
         {loadmore && isListEmpty && (
           <ButtonLoader onClick={this.handleLoadMore} />
         )}
